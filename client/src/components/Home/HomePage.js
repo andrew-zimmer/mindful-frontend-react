@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import { withRouter } from 'react-router-dom'
+
 import Container from '@material-ui/core/Container'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
@@ -9,7 +11,15 @@ import Grid from '@material-ui/core/Grid'
 import GitHubIcon from '@material-ui/icons/GitHub';
 import YouTubeIcon from '@material-ui/icons/YouTube';
 
-export default class HomePage extends Component {
+class HomePage extends Component {
+
+    handleClickSignIn = () => {
+        this.props.history.push('/users/login')
+    }
+
+    handleClickSignUp = () => {
+        this.props.history.push('/users/signup')
+    }
     render() {
         return (
             <Container >
@@ -20,10 +30,10 @@ export default class HomePage extends Component {
                     <Grid container spacing={2}>
                         <Grid item xs={1} sm={2} md={3} lg={4} xl={5}></Grid>
                         <Grid item xs={5} sm={4} md={3} lg={2} xl={1} align='center'>
-                            <Button variant='outlined' size='large' >Sign In</Button>
+                            <Button variant='outlined' size='large' onClick={this.handleClickSignIn}>Sign In</Button>
                         </Grid>
-                        <Grid item xs={5} sm={4} md={3} lg={2} xl={1} align='center' style={{ borderLeft: 'solid' }} >
-                            <Button variant='outlined' size='large' >Sign Up</Button>
+                        <Grid item xs={5} sm={4} md={3} lg={2} xl={1} align='center' style={{ borderLeft: 'solid' }}>
+                            <Button variant='outlined' size='large' onClick={this.handleClickSignUp}>Sign Up</Button>
                         </Grid>
                         <Grid item xs={1} sm={2} md={3} lg={4} xl={5}></Grid>
                     </Grid>
@@ -36,3 +46,5 @@ export default class HomePage extends Component {
         )
     }
 }
+
+export default withRouter(HomePage)

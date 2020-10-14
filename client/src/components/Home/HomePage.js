@@ -22,7 +22,7 @@ class HomePage extends Component {
     }
     render() {
         return (
-            <Container >
+            <Container  >
                 <Paper elevation={5} style={{ height: '100%', marginTop: '6rem', padding: '5rem' }}>
                     <Typography variant='h1' align='center' style={{ paddingTop: '0.5em' }}>Mindful</Typography>
                     <Typography variant='overline' display='block' align='center' style={{ marginTop: '1em', marginBottom: '5em' }}> Quote </Typography>

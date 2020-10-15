@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 
 import { withRouter } from 'react-router-dom'
 
+import Slider from './Slider'
+
 import Container from '@material-ui/core/Container'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
@@ -23,7 +25,7 @@ class HomePage extends Component {
     render() {
         return (
             <Container  >
-                <Paper elevation={5} style={{ height: '100%', marginTop: '6rem', padding: '5rem' }}>
+                <Paper elevation={24} style={{ height: '100%', marginTop: '6rem', padding: '5rem' }}>
                     <Typography variant='h1' align='center' style={{ paddingTop: '0.5em' }}>Mindful</Typography>
                     <Typography variant='overline' display='block' align='center' style={{ marginTop: '1em', marginBottom: '5em' }}> Quote </Typography>
 
@@ -42,6 +44,7 @@ class HomePage extends Component {
                     <GitHubIcon />
                     <YouTubeIcon />
                 </div>
+                <Slider />
             </Container>
         )
     }

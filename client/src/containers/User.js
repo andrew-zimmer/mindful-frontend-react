@@ -5,6 +5,7 @@ import { Switch, Route } from 'react-router-dom'
 import SignInForm from '../components/User/Signin/SignInForm'
 import SignUpForm from '../components/User/SignUp/SignUpForm'
 import UserHomePage from '../components/User/UserHome/UserHomePage'
+import MoodDairyForm from '../components/User/MoodDairy/MoodDairyForm'
 
 export default class User extends Component {
     render() {
@@ -19,6 +20,9 @@ export default class User extends Component {
                     </Route>
                     <Route exact path='/users/home'>
                         <UserHomePage />
+                    </Route>
+                    <Route exact path='/users/mooddiary/new'>
+                        <MoodDairyForm />
                     </Route>
                 </div>
             </Switch>

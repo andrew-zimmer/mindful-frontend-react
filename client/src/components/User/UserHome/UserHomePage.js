@@ -2,13 +2,15 @@ import React, { Component } from 'react'
 
 import EmergancyModal from './EmergancyModal'
 
+import { withRouter } from 'react-router-dom'
+
 import Container from '@material-ui/core/Container'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 
-export default class UserHomePage extends Component {
+class UserHomePage extends Component {
     state = {
         ele1: 5,
         ele2: 5,
@@ -31,7 +33,7 @@ export default class UserHomePage extends Component {
 
                     <Grid container spacing={2} style={{ marginTop: '3rem' }}>
                         <Grid item xs={4}>
-                            <Paper elevation={this.state.ele1} style={{ height: 150 }} onMouseEnter={this.handleTouchStart} onMouseOut={this.handleMouseOut}>
+                            <Paper elevation={this.state.ele1} style={{ height: 150 }} onMouseEnter={this.handleTouchStart} onMouseOut={this.handleMouseOut} onClick={() => this.props.history.push('/users/mooddiary/new')}>
                                 <Button id='ele1' style={{ height: '100%', width: '100%' }} > Mood Diary</Button>
                             </Paper>
                         </Grid>
@@ -55,3 +57,5 @@ export default class UserHomePage extends Component {
         )
     }
 }
+
+export default withRouter(UserHomePage)

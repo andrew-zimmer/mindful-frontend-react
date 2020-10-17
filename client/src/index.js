@@ -2,12 +2,23 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 
+import './css/styles.css'
+
+import Moods from './reducers/Moods'
+
 import { BrowserRouter as Router } from 'react-router-dom'
+import { createStore, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux'
+import thunk from 'redux-thunk'
+
+const store = createStore(Moods, applyMiddleware(thunk))
 
 ReactDOM.render(
-  <Router>
-    <App />
-  </Router>,
+  <Provider store={store}>
+    <Router>
+      <App />
+    </Router>
+  </Provider>,
   document.getElementById('root')
 );
 

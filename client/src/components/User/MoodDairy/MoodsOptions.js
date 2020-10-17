@@ -5,42 +5,55 @@ import { connect } from 'react-redux'
 import ReactCardFlip from 'react-card-flip';
 
 import Paper from '@material-ui/core/Paper'
-import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
-
 
 
 class MoodsOptions extends Component {
     state = {
         isFlipped: false
+
     }
 
     handleMouseOver = (e) => {
-        this.setState({
-            isFlipped: true
-        })
+
+        this.props.handleCardFlips(this.props.mood.mood)
     }
 
     handleMouseOut = (e) => {
-        this.setState({
-            isFlipped: false
-        })
+        this.props.handleCardFlips('')
+    }
+
+    flipped = () => {
+        if (!this.state.isFlipped) {
+            this.props.moodSelect === this.props.mood.mood && this.setState({ isFlipped: true })
+        } else {
+            this.props.moodSelect !== this.props.mood.mood && this.setState({ isFlipped: false })
+        }
+
     }
 
 
     render() {
+        this.flipped()
         return (
-            <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="vertical">
 
-                <Paper onClick={this.handleMouseOver} style={{ width: '100%', height: 100 }}>
+            <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="vertical" >
 
-                    <Typography keys='front' variant='h3' className='flip-card-front'>
+                <Paper onClick={this.handleMouseOver} style={{ width: '100%', minWidth: '6rem', height: "8rem" }}>
+
+                    <Typography keys='front' align='center' variant='h4' gutterBottom className='flip-card-front'>
                         {this.props.mood.mood}
                     </Typography>
-                </Paper>
-                <Paper onClick={this.handleMouseOut} style={{ width: '100%', height: 100 }}>
-
                     <Typography keys='back' variant='h3' align='center' className='flip-card-back'>
+                        <i className={this.props.mood.pic}></i>
+                    </Typography>
+                </Paper>
+                <Paper elevation={12} onClick={this.handleMouseOut} style={{ width: '100%', height: "8rem", backgroundColor: 'green' }}>
+
+                    <Typography keys='front' align='center' variant='h4' gutterBottom className='flip-card-front' style={{ color: 'white' }}>
+                        {this.props.mood.mood}
+                    </Typography>
+                    <Typography keys='back' variant='h3' align='center' className='flip-card-back' style={{ color: 'white' }}>
                         <i className={this.props.mood.pic}></i>
                     </Typography>
                 </Paper>

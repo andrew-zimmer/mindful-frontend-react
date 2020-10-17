@@ -29,26 +29,27 @@ function getSteps() {
     return ['Select your mood', 'Create a diary entry', 'Lets reflect',];
 }
 
-function getStepContent(step) {
-    switch (step) {
-        case 0:
-            return 'Select your mood...';
-        case 1:
-            return "Lets write about it.";
-        case 2:
-            return 'Good questions to ask yourself when writing about your mood';
-        default:
-            return 'Unknown step';
-    }
-}
 
-function HorizontalLinearStepper({ moods }) {
+
+function HorizontalLinearStepper({ moods, moodSelect, handleCardFlips }) {
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
     const [skipped, setSkipped] = React.useState(new Set());
     const steps = getSteps();
 
 
+    function getStepContent(step) {
+        switch (step) {
+            case 0:
+                return `I feel... ${moodSelect}`;
+            case 1:
+                return "Lets write about it.";
+            case 2:
+                return 'Good questions to ask yourself when writing about your mood';
+            default:
+                return 'Unknown step';
+        }
+    }
 
     const isStepSkipped = (step) => {
         return skipped.has(step);
@@ -75,6 +76,8 @@ function HorizontalLinearStepper({ moods }) {
         setActiveStep(0);
     };
 
+
+
     return (
         <Grid container spacing={2} className={classes.root}>
             <Grid item xs={12}>
@@ -95,7 +98,7 @@ function HorizontalLinearStepper({ moods }) {
                 </Stepper>
             </Grid>
 
-            {activeStep === 0 && moods.map(mood => <Grid keys={mood.mood} item xs={3}><MoodsOptions mood={mood} /></Grid>)}
+            {activeStep === 0 && moods.map(mood => <Grid keys={mood.mood} item xs={6} md={3}><MoodsOptions moodSelect={moodSelect} handleCardFlips={handleCardFlips} mood={mood} /></Grid>)}
 
             <Grid item xs={12}>
                 {activeStep === steps.length ? (

@@ -3,22 +3,28 @@ import { Switch, Route } from 'react-router-dom'
 
 import Home from './containers/Home'
 import User from './containers/User'
+import { createMuiTheme, responsiveFontSizes, MuiThemeProvider } from '@material-ui/core'
+
+let theme = createMuiTheme()
+theme = responsiveFontSizes(theme)
 
 
 function App() {
   return (
     <div className="App">
-      <Switch>
-        <Route exact path="/">
-          <Home />
+      <MuiThemeProvider theme={theme}>
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path='/users'>
+            <User />
+          </Route>
+          <Route>
+            'Are you lost?'
         </Route>
-        <Route path='/users'>
-          <User />
-        </Route>
-        <Route>
-          'Are you lost?'
-        </Route>
-      </Switch>
+        </Switch>
+      </MuiThemeProvider>
     </div>
   );
 }

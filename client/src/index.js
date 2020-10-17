@@ -4,14 +4,14 @@ import App from './App';
 
 import './css/styles.css'
 
-import Moods from './reducers/Moods'
+import Reducers from './reducers/Moods'
 
 import { BrowserRouter as Router } from 'react-router-dom'
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 
-const store = createStore(Moods, applyMiddleware(thunk))
+const store = createStore(Reducers, applyMiddleware(thunk))
 
 ReactDOM.render(
   <Provider store={store}>

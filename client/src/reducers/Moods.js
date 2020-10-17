@@ -57,7 +57,7 @@ const emotions = [
 
     {
         mood: 'confused',
-        pic: 'las la-grin-stars',
+        pic: 'las la-dizzy',
         resource: 'https://www.huffpost.com/entry/4-ways-to-find-direction-when-you-are-feeling-confused_b_5798e0dde4b0e339c2400320',
         backgroundColor: '#60E910'
     },

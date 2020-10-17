@@ -9,6 +9,14 @@ import Button from '@material-ui/core/Button'
 import MoodFormStepper from './MoodFormStepper'
 
 export default class MoodDairyForm extends Component {
+    state = {
+        moodSelect: ''
+    }
+
+    handleCardFlips = (mood) => {
+        this.setState({ moodSelect: mood })
+
+    }
 
     render() {
         return (
@@ -16,7 +24,7 @@ export default class MoodDairyForm extends Component {
                 <Container  >
                     <Paper elevation={24} style={{ height: '100%', marginTop: '6rem', padding: '5rem' }}>
                         <Typography variant='h1' align='center' style={{ paddingTop: '0.5em' }}>Mood Diary</Typography>
-                        <MoodFormStepper />
+                        <MoodFormStepper moodSelect={this.state.moodSelect} handleCardFlips={this.handleCardFlips} />
 
                     </Paper>
                 </Container>

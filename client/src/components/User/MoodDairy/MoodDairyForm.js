@@ -10,12 +10,17 @@ import MoodFormStepper from './MoodFormStepper'
 
 export default class MoodDairyForm extends Component {
     state = {
-        moodSelect: ''
+        moodSelect: '',
+        moodEntry: ''
     }
 
     handleCardFlips = (mood) => {
         this.setState({ moodSelect: mood })
 
+    }
+
+    handleMoodEntry = (e) => {
+        this.setState({ moodEntry: e.target.value })
     }
 
     render() {
@@ -24,7 +29,7 @@ export default class MoodDairyForm extends Component {
                 <Container  >
                     <Paper elevation={24} style={{ height: '100%', marginTop: '3rem', padding: '3rem' }}>
                         <Typography variant='h1' align='center' style={{ paddingTop: '0rem' }}>Mood Diary</Typography>
-                        <MoodFormStepper moodSelect={this.state.moodSelect} handleCardFlips={this.handleCardFlips} />
+                        <MoodFormStepper moodSelect={this.state.moodSelect} moodEntry={this.state.moodEntry} handleMoodEntry={this.handleMoodEntry} handleCardFlips={this.handleCardFlips} />
 
                     </Paper>
                 </Container>

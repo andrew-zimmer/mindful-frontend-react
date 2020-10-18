@@ -15,6 +15,8 @@ export default class MoodDiaryEntry extends Component {
                     placeholder={`What has you feeling ${this.props.mood}?`}
                     variant="outlined"
                     style={{ width: "100%" }}
+                    value={this.props.moodEntry}
+                    onChange={this.props.handleMoodEntry}
                 />
             </Container>
         )

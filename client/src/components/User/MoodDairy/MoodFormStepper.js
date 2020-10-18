@@ -12,7 +12,7 @@ import Grid from '@material-ui/core/Grid'
 
 import MoodsOptions from './MoodsOptions'
 import MoodDiaryEntry from './MoodDiaryEntry'
-import MoodDairyForm from './MoodDairyForm';
+import MoodDiaryReflection from './MoodDiaryReflection'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -96,7 +96,8 @@ function HorizontalLinearStepper({ moods, moodSelect, handleCardFlips }) {
             </Grid>
 
             {activeStep === 0 && moods.map(mood => <Grid keys={mood.mood} item xs={6} md={3}><MoodsOptions moodSelect={moodSelect} handleCardFlips={handleCardFlips} mood={mood} /></Grid>)}
-            {activeStep === 1 && <MoodDiaryEntry />}
+            {activeStep === 1 && <MoodDiaryEntry mood={moodSelect} />}
+            {activeStep === 2 && <MoodDiaryReflection />}
             <Grid item xs={12}>
                 {activeStep === steps.length ? (
                     <div>

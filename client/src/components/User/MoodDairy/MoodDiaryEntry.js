@@ -12,7 +12,7 @@ export default class MoodDiaryEntry extends Component {
                     id="filled-multiline-static"
                     multiline
                     rows={4}
-                    placeholder="What has you feeling like this... ?"
+                    placeholder={`What has you feeling ${this.props.mood}?`}
                     variant="outlined"
                     style={{ width: "100%" }}
                 />

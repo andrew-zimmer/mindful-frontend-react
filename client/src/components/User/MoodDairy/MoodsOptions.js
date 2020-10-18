@@ -39,7 +39,7 @@ class MoodsOptions extends Component {
 
             <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="vertical" >
 
-                <Paper onClick={this.handleMouseOver} style={{ width: '100%', minWidth: '6rem', height: "8rem" }}>
+                <Paper onClick={this.handleMouseOver} style={{ width: '100%', minWidth: '6rem', height: "6rem" }}>
 
                     <Typography keys='front' align='center' variant='h4' gutterBottom className='flip-card-front'>
                         {this.props.mood.mood}
@@ -48,7 +48,7 @@ class MoodsOptions extends Component {
                         <i className={this.props.mood.pic}></i>
                     </Typography>
                 </Paper>
-                <Paper elevation={12} onClick={this.handleMouseOut} style={{ width: '100%', height: "8rem", backgroundColor: 'green' }}>
+                <Paper elevation={12} onClick={this.handleMouseOut} style={{ width: '100%', height: "6rem", backgroundColor: 'green' }}>
 
                     <Typography keys='front' align='center' variant='h4' gutterBottom className='flip-card-front' style={{ color: 'white' }}>
                         {this.props.mood.mood}

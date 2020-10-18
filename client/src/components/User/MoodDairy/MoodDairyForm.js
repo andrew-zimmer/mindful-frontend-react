@@ -22,8 +22,8 @@ export default class MoodDairyForm extends Component {
         return (
             <div>
                 <Container  >
-                    <Paper elevation={24} style={{ height: '100%', marginTop: '6rem', padding: '5rem' }}>
-                        <Typography variant='h1' align='center' style={{ paddingTop: '0.5em' }}>Mood Diary</Typography>
+                    <Paper elevation={24} style={{ height: '100%', marginTop: '3rem', padding: '3rem' }}>
+                        <Typography variant='h1' align='center' style={{ paddingTop: '0rem' }}>Mood Diary</Typography>
                         <MoodFormStepper moodSelect={this.state.moodSelect} handleCardFlips={this.handleCardFlips} />
 
                     </Paper>

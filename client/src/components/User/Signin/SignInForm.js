@@ -2,6 +2,9 @@ import React from 'react';
 
 import { Link } from 'react-router-dom'
 
+import { connect } from 'react-redux'
+import { signIn } from '../../../actions/user'
+
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -16,6 +19,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+
+
 
 function Copyright() {
     return (
@@ -50,8 +55,27 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function SignIn() {
+function SignIn({ signIn }) {
+    const [email, setEmail] = React.useState('')
+    const [password, setPassword] = React.useState('')
+
     const classes = useStyles();
+
+    const handleChange = (e) => {
+        e.target.name === 'password' && setPassword(e.target.value)
+        e.target.name === 'email' && setEmail(e.target.value)
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        const userData = {
+            email,
+            password
+        }
+
+        signIn(userData)
+
+    }
 
     return (
         <Container>
@@ -66,7 +90,7 @@ export default function SignIn() {
                         <Typography component="h1" variant="h5">
                             Sign in
         </Typography>
-                        <form className={classes.form} noValidate>
+                        <form className={classes.form} noValidate onSubmit={handleSubmit}>
                             <TextField
                                 variant="outlined"
                                 margin="normal"
@@ -77,6 +101,7 @@ export default function SignIn() {
                                 name="email"
                                 autoComplete="email"
                                 autoFocus
+                                onChange={handleChange}
                             />
                             <TextField
                                 variant="outlined"
@@ -88,6 +113,7 @@ export default function SignIn() {
                                 type="password"
                                 id="password"
                                 autoComplete="current-password"
+                                onChange={handleChange}
                             />
                             <FormControlLabel
                                 control={<Checkbox value="remember" color="primary" />}
@@ -125,3 +151,5 @@ export default function SignIn() {
         </Container>
     );
 }
+
+export default connect(null, { signIn })(SignIn)

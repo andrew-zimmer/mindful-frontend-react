@@ -66,7 +66,7 @@ class MoodsOptions extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        moods: state.moods
+        moods: state.moods.moods
     }
 
 }

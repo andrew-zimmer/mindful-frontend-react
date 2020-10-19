@@ -34,6 +34,7 @@ app.use(session({ name: 'jwt', keys: ['Temporary value'] }))
 
 // AUTHENTICATION ROUTE
 app.post('/api/v1/users', async (req, res) => {
+    console.log('we in this gun')
     const loginRes = await axios({
         method: "POST",
         url: `${API_URL}/v1/users`,

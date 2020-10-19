@@ -135,7 +135,7 @@ function HorizontalLinearStepper({ moods, moodSelect, handleCardFlips, handleMoo
 
 const mapStateToProps = state => {
     return {
-        moods: state.moods
+        moods: state.moods.moods
     }
 }
 

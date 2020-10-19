@@ -19,6 +19,7 @@ export const signUp = (userData) => {
     };
     console.log('in sign up function in action file')
     return (dispatch) => {
+        dispatch({ type: 'LOADING' })
         fetch('/api/v1/users', configObj)
             .then(res => res.json())
             .then(json => {
@@ -34,6 +35,8 @@ export const signUp = (userData) => {
 }
 
 export const signIn = (userData) => {
+
+
     let formData = {
         email: userData.email,
         password: userData.password,
@@ -47,9 +50,11 @@ export const signIn = (userData) => {
         body: JSON.stringify(formData),
     };
     return (dispatch) => {
+        dispatch({ type: 'LOADING' })
         fetch('/api/v1/sessions', configObj)
             .then(res => res.json())
             .then(json => {
+
                 if (json.errors) {
                     dispatch({ type: 'ERRORS', payload: json })
                 } else {
@@ -93,6 +98,7 @@ export const signOut = (userData) => {
 
 export const checkSessionForToken = () => {
     return (dispatch) => {
+        dispatch({ type: 'LOADING' })
         fetch('/api/userlogin')
             .then(res => res.json())
             .then(json => {

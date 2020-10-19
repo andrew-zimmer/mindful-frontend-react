@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { signIn } from '../../../actions/user'
 
+import LoadingBackDrop from '../../LoadingBackDrop'
+
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -55,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function SignIn({ signIn }) {
+function SignIn({ signIn, loading }) {
     const [email, setEmail] = React.useState('')
     const [password, setPassword] = React.useState('')
 
@@ -148,8 +150,15 @@ function SignIn({ signIn }) {
 
                 </Container>
             </Paper>
+            <LoadingBackDrop loading={loading} />
         </Container>
     );
 }
 
-export default connect(null, { signIn })(SignIn)
+const mapStateToProps = (state) => {
+    return {
+        loading: state.users.loading
+    }
+}
+
+export default connect(mapStateToProps, { signIn })(SignIn)

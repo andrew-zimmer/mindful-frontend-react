@@ -14,6 +14,14 @@ class MoodsOptions extends Component {
 
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if (!this.state.isFlipped) {
+            this.props.moodSelect === this.props.mood.mood && this.setState({ isFlipped: true })
+        } else {
+            this.props.moodSelect !== this.props.mood.mood && this.setState({ isFlipped: false })
+        }
+    }
+
     handleMouseOver = (e) => {
 
         this.props.handleCardFlips(this.props.mood.mood)
@@ -33,8 +41,10 @@ class MoodsOptions extends Component {
     }
 
 
+
+
     render() {
-        this.flipped()
+
         return (
 
             <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="vertical" >

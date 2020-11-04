@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 
+import { connect } from 'react-redux'
+import { createMood } from '../../../actions/mood'
+
 import Container from '@material-ui/core/Container'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
@@ -8,7 +11,7 @@ import Button from '@material-ui/core/Button'
 
 import MoodFormStepper from './MoodFormStepper'
 
-export default class MoodDairyForm extends Component {
+class MoodDairyForm extends Component {
     state = {
         moodSelect: '',
         moodEntry: ''
@@ -23,13 +26,23 @@ export default class MoodDairyForm extends Component {
         this.setState({ moodEntry: e.target.value })
     }
 
+    createNewMood = () => {
+        const userData = {
+            mood: this.state.moodSelect,
+            comment: this.state.moodEntry,
+            id: this.props.id
+        }
+
+        createMood(userData)
+    }
+
     render() {
         return (
             <div>
                 <Container  >
                     <Paper elevation={24} style={{ height: '100%', marginTop: '3rem', padding: '3rem' }}>
                         <Typography variant='h1' align='center' style={{ paddingTop: '0rem' }}>Mood Diary</Typography>
-                        <MoodFormStepper moodSelect={this.state.moodSelect} moodEntry={this.state.moodEntry} handleMoodEntry={this.handleMoodEntry} handleCardFlips={this.handleCardFlips} />
+                        <MoodFormStepper id={this.props.id} moodSelect={this.state.moodSelect} moodEntry={this.state.moodEntry} handleMoodEntry={this.handleMoodEntry} handleCardFlips={this.handleCardFlips} />
 
                     </Paper>
                 </Container>
@@ -37,3 +50,11 @@ export default class MoodDairyForm extends Component {
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        id: state.users.id
+    }
+}
+
+export default connect(mapStateToProps, { createMood })(MoodDairyForm)

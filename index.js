@@ -34,7 +34,7 @@ app.use(session({ name: 'jwt', keys: ['Temporary value'] }))
 
 // AUTHENTICATION ROUTE
 app.post('/api/v1/users', async (req, res) => {
-    console.log('we in this gun')
+
     const loginRes = await axios({
         method: "POST",
         url: `${API_URL}/v1/users`,
@@ -80,20 +80,20 @@ app.post('/api/v1/sessions', async (req, res) => {
 app.delete('/api/v1/sessions', async (req, res) => {
     await axios({
         method: 'DELETE',
-        url: `${API_URL}/v1/sessions`,
+        url: `${API_URL}/v1/sessions/${req.body.id}`,
         data: req.body
     }).then(resp => {
         res.send(resp.data)
         req.session = null
 
     })
-        .catch(err => console.log(err))
+        .catch(err => console.log('error'))
 
 })
 
 //check for user jwt in sessions and logs them in
 app.get('/api/userlogin', async (req, res) => {
-    console.log(req.session.jwt)
+
     if (req.session.jwt) {
         console.log('yes Token')
 
@@ -116,6 +116,30 @@ app.get('/api/userlogin', async (req, res) => {
         console.log('no Token')
         res.send({ status: 400 })
     }
+})
+
+app.post('/api/v1/moods', async (req, res) => {
+    console.log('in node backend')
+    const loginRes = await axios({
+        method: "POST",
+        url: `${API_URL}/v1/moods`,
+        data: ({
+            ...req.body,
+            user_email: req.session.email,
+            user_token: req.session.jwt
+        })
+    }).then(resp => {
+        if (resp.data.errors) {
+            res.send(resp)
+        } else {
+            console.log(resp.data)
+            res.send(resp.data)
+        }
+    })
+        .catch(err => {
+
+            res.send(err)
+        })
 })
 
 // Handles any requests that don't match the ones above

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { connect } from 'react-redux'
+import { createMood } from '../../../actions/mood'
 
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
@@ -33,7 +34,7 @@ function getSteps() {
 
 
 
-function HorizontalLinearStepper({ moods, moodSelect, handleCardFlips, handleMoodEntry, moodEntry }) {
+function HorizontalLinearStepper({ moods, moodSelect, handleCardFlips, handleMoodEntry, moodEntry, createMood, id }) {
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
     const [skipped, setSkipped] = React.useState(new Set());
@@ -60,6 +61,15 @@ function HorizontalLinearStepper({ moods, moodSelect, handleCardFlips, handleMoo
     const handleNext = () => {
         if (!!moodSelect) {
             setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        }
+        if (activeStep === 2) {
+            //submit mood to db
+            const userData = {
+                mood: moodSelect,
+                comment: moodEntry,
+                id: id
+            }
+            createMood(userData)
         }
     };
 
@@ -95,7 +105,7 @@ function HorizontalLinearStepper({ moods, moodSelect, handleCardFlips, handleMoo
                 </Stepper>
             </Grid>
 
-            {activeStep === 0 && moods.map(mood => <Grid keys={mood.mood} item xs={6} md={3}><MoodsOptions moodSelect={moodSelect} handleCardFlips={handleCardFlips} mood={mood} /></Grid>)}
+            {activeStep === 0 && moods.map(mood => <Grid key={mood.mood} item xs={6} md={3}><MoodsOptions moodSelect={moodSelect} handleCardFlips={handleCardFlips} mood={mood} /></Grid>)}
             {activeStep === 1 && <MoodDiaryEntry mood={moodSelect} moodEntry={moodEntry} handleMoodEntry={handleMoodEntry} />}
             {activeStep === 2 && <MoodDiaryReflection />}
             <Grid item xs={12}>
@@ -139,4 +149,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(HorizontalLinearStepper)
+export default connect(mapStateToProps, { createMood })(HorizontalLinearStepper)

@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 
 import EmergancyModal from './EmergancyModal'
 
+import { connect } from 'react-redux'
+import { signOut } from '../../../actions/user'
+
 import { withRouter } from 'react-router-dom'
 
 import Container from '@material-ui/core/Container'
@@ -28,6 +31,7 @@ class UserHomePage extends Component {
     render() {
         return (
             <Container  >
+                <Button onClick={() => this.props.signOut(this.props.id)}>Signout</Button>
                 <Paper elevation={24} style={{ height: '100%', marginTop: '6rem', paddingTop: '3rem', paddingLeft: '5em', paddingRight: '5em', paddingBottom: '2em' }}>
                     <Typography variant='h2' align='center' >Weclome User</Typography>
 
@@ -58,4 +62,10 @@ class UserHomePage extends Component {
     }
 }
 
-export default withRouter(UserHomePage)
+const mapStateToProps = state => {
+    return {
+        id: state.users.id
+    }
+}
+
+export default connect(mapStateToProps, { signOut })(withRouter(UserHomePage))

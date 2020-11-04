@@ -17,7 +17,6 @@ export const signUp = (userData) => {
         },
         body: JSON.stringify(formData),
     };
-    console.log('in sign up function in action file')
     return (dispatch) => {
         dispatch({ type: 'LOADING' })
         fetch('/api/v1/users', configObj)
@@ -73,7 +72,7 @@ export const resetErrors = () => {
 }
 
 export const signOut = (userData) => {
-
+    console.log('signOut')
     return dispatch => {
         let formData = {
             id: userData,

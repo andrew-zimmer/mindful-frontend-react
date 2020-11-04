@@ -2,6 +2,8 @@ import React from 'react';
 
 import { Link } from 'react-router-dom'
 
+import LoadingBackDrop from '../../LoadingBackDrop'
+
 import { connect } from 'react-redux'
 import { signUp } from '../../../actions/user'
 
@@ -52,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(3, 0, 2),
     },
 }));
-function SignUp({ signUp }) {
+function SignUp({ signUp, loading }) {
     const [username, setUsername] = React.useState('')
     const [email, setEmail] = React.useState('')
     const [password, setPassword] = React.useState('')
@@ -174,9 +176,15 @@ function SignUp({ signUp }) {
                     </Box>
                 </Container>
             </Paper>
+            <LoadingBackDrop loading={loading} />
         </Container>
     );
 }
 
+const mapStateToProps = state => {
+    return {
+        loading: state.users.loading
+    }
+}
 
-export default connect(null, { signUp })(SignUp)
+export default connect(mapStateToProps, { signUp })(SignUp)

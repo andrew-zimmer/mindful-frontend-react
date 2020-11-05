@@ -1,5 +1,7 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom'
+
+import { connect } from 'react-redux'
 
 import Home from './containers/Home'
 import User from './containers/User'
@@ -9,13 +11,13 @@ let theme = createMuiTheme()
 theme = responsiveFontSizes(theme)
 
 
-function App() {
+function App({ loggedIn }) {
   return (
     <div className="App">
       <MuiThemeProvider theme={theme}>
         <Switch>
           <Route exact path="/">
-            <Home />
+            {loggedIn ? <Redirect to='/users/home' /> : <Home />}
           </Route>
           <Route path='/users'>
             <User />
@@ -29,4 +31,10 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    loggedIn: state.users.loggedIn
+  }
+}
+
+export default connect(mapStateToProps)(App)

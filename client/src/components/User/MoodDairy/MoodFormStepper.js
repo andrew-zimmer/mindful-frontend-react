@@ -113,10 +113,13 @@ function HorizontalLinearStepper({ moods, moodSelect, handleCardFlips, handleMoo
                     <div>
                         <Typography className={classes.instructions}>
                             All steps completed - you&apos;re finished
-            </Typography>
+                        </Typography>
                         <Button onClick={handleReset} className={classes.button}>
                             Reset
-            </Button>
+                        </Button>
+                        <Button>
+                            Home
+                        </Button>
                     </div>
                 ) : (
                         <div>

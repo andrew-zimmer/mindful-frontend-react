@@ -6,8 +6,10 @@ export default function Users(state = { loading: false, loggedIn: false, usernam
         case 'SIGN_UP':
             return { ...state, loading: false, loggedIn: true, username: action.payload.username, email: action.payload.email, id: action.payload.id }
         case 'SIGN_OUT':
-            console.log('signed Out')
             return { ...state, loggedIn: false, username: '', email: '', id: '', userMoods: [] }
+        case 'CONFIRM_JWT':
+            console.log('confirmed jwt', action.payload)
+            return { ...state, loading: false, loggedIn: true, username: action.payload.user.username, email: action.payload.user.email, id: action.payload.user.id, userMoods: [...action.payload.moods] }
         case 'ERRORS':
             console.log(action.payload)
             return { ...state, loading: false }

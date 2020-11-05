@@ -99,7 +99,7 @@ app.get('/api/userlogin', async (req, res) => {
 
         await axios({
             method: 'GET',
-            url: `${API_URL}/v1/quick_picks`,
+            url: `${API_URL}/v1/moods`,
             data: ({
 
                 user_email: req.session.email,

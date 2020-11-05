@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 
 import { withRouter } from 'react-router-dom'
 
+import { connect } from 'react-redux'
+import { checkSessionForToken } from '../../actions/user'
+
 import Slider from './Slider'
 
 import Container from '@material-ui/core/Container'
@@ -14,6 +17,10 @@ import GitHubIcon from '@material-ui/icons/GitHub';
 import YouTubeIcon from '@material-ui/icons/YouTube';
 
 class HomePage extends Component {
+
+    UNSAFE_componentWillMount() {
+        this.props.checkSessionForToken()
+    }
 
     handleClickSignIn = () => {
         this.props.history.push('/users/login')
@@ -50,4 +57,4 @@ class HomePage extends Component {
     }
 }
 
-export default withRouter(HomePage)
+export default connect(null, { checkSessionForToken })(withRouter(HomePage))

@@ -72,7 +72,6 @@ export const resetErrors = () => {
 }
 
 export const signOut = (userData) => {
-    console.log('signOut')
     return dispatch => {
         let formData = {
             id: userData,
@@ -101,8 +100,8 @@ export const checkSessionForToken = () => {
         fetch('/api/userlogin')
             .then(res => res.json())
             .then(json => {
-
-                dispatch({ type: 'CONFIRM_JWT', payload: json.data.quick_picks })
+                console.log(json)
+                dispatch({ type: 'CONFIRM_JWT', payload: json.data.mood })
             })
             .catch(err => console.log(err))
     }

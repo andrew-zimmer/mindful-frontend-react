@@ -22,6 +22,12 @@ class MoodsOptions extends Component {
         }
     }
 
+    componentDidMount() {
+        if (this.props.moodSelect === this.props.mood.mood) {
+            this.setState({ isFlipped: true })
+        }
+    }
+
     handleMouseOver = (e) => {
 
         this.props.handleCardFlips(this.props.mood.mood)

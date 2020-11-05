@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { useHistory } from 'react-router-dom'
+
 import { connect } from 'react-redux'
 import { createMood } from '../../../actions/mood'
 
@@ -39,6 +41,8 @@ function HorizontalLinearStepper({ moods, moodSelect, handleCardFlips, handleMoo
     const [activeStep, setActiveStep] = React.useState(0);
     const [skipped, setSkipped] = React.useState(new Set());
     const steps = getSteps();
+
+    const history = useHistory()
 
 
     function getStepContent(step) {
@@ -117,7 +121,7 @@ function HorizontalLinearStepper({ moods, moodSelect, handleCardFlips, handleMoo
                         <Button onClick={handleReset} className={classes.button}>
                             Reset
                         </Button>
-                        <Button>
+                        <Button onClick={() => history.push('/users/home')}>
                             Home
                         </Button>
                     </div>
@@ -137,6 +141,10 @@ function HorizontalLinearStepper({ moods, moodSelect, handleCardFlips, handleMoo
                                     className={classes.button}
                                 >
                                     {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                                </Button>
+
+                                <Button variant='contained' onClick={() => history.push('/users/home')} style={{ float: 'right' }}>
+                                    Cancel
                                 </Button>
                             </div>
                         </div>

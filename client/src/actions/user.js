@@ -100,7 +100,6 @@ export const checkSessionForToken = () => {
         fetch('/api/userlogin')
             .then(res => res.json())
             .then(json => {
-                console.log(json)
                 dispatch({ type: 'CONFIRM_JWT', payload: json.data.mood })
             })
             .catch(err => console.log(err))

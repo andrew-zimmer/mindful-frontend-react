@@ -33,7 +33,7 @@ class UserHomePage extends Component {
             <Container  >
                 <Button onClick={() => this.props.signOut(this.props.id)}>Signout</Button>
                 <Paper elevation={24} style={{ height: '100%', marginTop: '6rem', paddingTop: '3rem', paddingLeft: '5em', paddingRight: '5em', paddingBottom: '2em' }}>
-                    <Typography variant='h2' align='center' >Weclome User</Typography>
+                    <Typography variant='h2' align='center' >Weclome {this.props.username}</Typography>
 
                     <Grid container spacing={2} style={{ marginTop: '3rem' }}>
                         <Grid item xs={4}>
@@ -42,7 +42,7 @@ class UserHomePage extends Component {
                             </Paper>
                         </Grid>
                         <Grid item xs={4}>
-                            <Paper elevation={this.state.ele2} style={{ height: 150 }} onMouseEnter={this.handleTouchStart} onMouseOut={this.handleMouseOut}>
+                            <Paper elevation={this.state.ele2} style={{ height: 150 }} onMouseEnter={this.handleTouchStart} onMouseOut={this.handleMouseOut} onClick={() => this.props.history.push('/users/mooddata')}>
                                 <Button id='ele2' style={{ height: '100%', width: '100%' }}>Mood Data</Button>
                             </Paper>
                         </Grid>
@@ -64,7 +64,8 @@ class UserHomePage extends Component {
 
 const mapStateToProps = state => {
     return {
-        id: state.users.id
+        id: state.users.id,
+        username: state.users.username
     }
 }
 

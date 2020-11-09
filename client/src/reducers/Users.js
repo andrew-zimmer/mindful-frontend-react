@@ -10,10 +10,9 @@ export default function Users(state = { loading: false, loggedIn: false, usernam
         case 'CONFIRM_JWT':
             return { ...state, loading: false, loggedIn: true, username: action.payload.user.username, email: action.payload.user.email, id: action.payload.user.id, userMoods: [...action.payload.moods] }
         case 'ERRORS':
-            console.log(action.payload)
             return { ...state, loading: false }
         case 'CREATE_MOOD':
-            return state
+            return { ...state, userMoods: [...state.userMoods, action.payload.mood] }
         case 'LOADING':
             return { ...state, loading: true }
         default:

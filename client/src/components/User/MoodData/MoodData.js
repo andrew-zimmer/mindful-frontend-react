@@ -1,15 +1,18 @@
 import React, { useState } from 'react'
 
 import { Bar } from 'react-chartjs-2'
+
 import MoodFilter from './MoodFilter'
+import MoodDateFilter from './MoodDateFilter'
 
 function MoodData(props) {
 
     const [moods, setMoods] = useState(props.moods)
     const [userMoods, setUserMoods] = useState(props.userMoods)
     const [uniqMoods, setUniqMoods] = useState(props.uniqMoods)
+    const [allDates, setAllDates] = useState([...new Set(props.userMoods.map(moods => moods.created_at))])
 
-    const dates = [...userMoods.map(mood => {
+    const dates = [...userMoods.filter(mood => uniqMoods.includes(mood.mood)).map(mood => {
 
         const d = new Date(mood.created_at);
         const ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
@@ -24,6 +27,35 @@ function MoodData(props) {
     }
 
     const moodsArray = [...new Set([...userMoods.map(mood => mood.mood)])]
+
+    console.log(userMoods)
+
+    const startDateEndDate = (start, end) => {
+        const newMoodsArray = [...props.userMoods.map(mood => {
+
+            const d = new Date(mood.created_at);
+            const ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
+            const mo = new Intl.DateTimeFormat('en', { month: '2-digit' }).format(d);
+            const date = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
+            return [date, mo, ye];
+
+        })]
+
+        const startIndex = newMoodsArray.findIndex(date => (start.getDate() == date[0] && (start.getMonth() + 1) == date[1] && start.getFullYear() == date[2]))
+        const endIndex = () => {
+            for (let i = 0; i < newMoodsArray.length; i++) {
+                if (end.getDate() == newMoodsArray[i][0] && (end.getMonth() + 1) == newMoodsArray[i][1] && end.getFullYear() == newMoodsArray[i][2]) {
+                    if (newMoodsArray[i + 1] && end.getDate() == newMoodsArray[i + 1][0] && (end.getMonth() + 1) == newMoodsArray[i + 1][1] && end.getFullYear() == newMoodsArray[i + 1][2]) {
+                        continue
+                    } else {
+                        return i
+                    }
+                }
+            }
+        }
+        console.log(startIndex, endIndex())
+        setUserMoods(props.userMoods.slice(startIndex, endIndex()))
+    }
 
     const moodData = () => {
         const dataArray = []
@@ -53,11 +85,11 @@ function MoodData(props) {
         labels: [...new Set(dates)],
         datasets: moodData()
     }
-    console.log(uniqMoods)
     return (
         <div>
             <Bar data={data} width={100} height={30} />
             <MoodFilter userMoods={userMoods} updateMood={updateMood} />
+            <MoodDateFilter dates={allDates} updateUserMoods={startDateEndDate} />
         </div>
     )
 

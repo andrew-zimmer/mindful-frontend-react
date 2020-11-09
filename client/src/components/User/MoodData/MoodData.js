@@ -5,6 +5,11 @@ import { Bar } from 'react-chartjs-2'
 import MoodFilter from './MoodFilter'
 import MoodDateFilter from './MoodDateFilter'
 
+import Grid from '@material-ui/core/Grid'
+import Paper from '@material-ui/core/Paper'
+import Typography from '@material-ui/core/Typography'
+import Container from '@material-ui/core/Container'
+
 function MoodData(props) {
 
     const [moods, setMoods] = useState(props.moods)
@@ -24,11 +29,18 @@ function MoodData(props) {
 
     const updateMood = (newMoods) => {
         setUniqMoods(newMoods)
+        const newUserMoods = () => {
+            let array = []
+            for (let i = 0; i < newMoods.length; i++) {
+                array = array.concat(props.userMoods.filter(mood => mood.mood === newMoods[i]))
+            }
+            setUserMoods(array)
+        }
+        newUserMoods()
     }
 
     const moodsArray = [...new Set([...userMoods.map(mood => mood.mood)])]
 
-    console.log(userMoods)
 
     const startDateEndDate = (start, end) => {
         const newMoodsArray = [...props.userMoods.map(mood => {
@@ -53,8 +65,33 @@ function MoodData(props) {
                 }
             }
         }
-        console.log(startIndex, endIndex())
         setUserMoods(props.userMoods.slice(startIndex, endIndex()))
+    }
+    console.log(userMoods)
+    const renderMoodComments = () => {
+        return userMoods.map(mood => {
+            const d = new Date(mood.created_at);
+            const ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
+            const mo = new Intl.DateTimeFormat('en', { month: 'short' }).format(d);
+            const date = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
+            return (<Paper fullwidth>
+                <Grid container>
+                    <Grid item md={6}>
+                        <Typography>
+                            {mood.mood}
+                        </Typography>
+                    </Grid>
+                    <Grid item md={6}>
+                        {`${mo}-${date}-${ye}`}
+                    </Grid>
+                    <Grid item md={12}>
+                        <Typography>
+                            {mood.comment ? mood.comment : 'No Comment'}
+                        </Typography>
+                    </Grid>
+                </Grid>
+            </Paper>)
+        })
     }
 
     const moodData = () => {
@@ -85,12 +122,34 @@ function MoodData(props) {
         labels: [...new Set(dates)],
         datasets: moodData()
     }
+    const options = {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true,
+                    min: 0,
+                    stepSize: 1
+                }
+            }]
+        }
+    };
     return (
-        <div>
-            <Bar data={data} width={100} height={30} />
-            <MoodFilter userMoods={userMoods} updateMood={updateMood} />
-            <MoodDateFilter dates={allDates} updateUserMoods={startDateEndDate} />
-        </div>
+        <Container>
+            <Grid container spacing={2}>
+                <Grid item xs={12}>
+                    <Bar data={data} options={options} width={100} height={30} />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                    <MoodFilter userMoods={props.userMoods} updateMood={updateMood} />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                    <MoodDateFilter dates={allDates} updateUserMoods={startDateEndDate} />
+                </Grid>
+                <Grid item xs={12}>
+                    {renderMoodComments()}
+                </Grid>
+            </Grid>
+        </Container>
     )
 
 }

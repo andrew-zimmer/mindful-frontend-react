@@ -5,7 +5,8 @@ export const createMood = (userData) => {
         mood: {
             mood: userData.mood,
             comment: userData.comment,
-            user_id: userData.id
+            user_id: userData.id,
+            title: userData.title
         }
 
     };

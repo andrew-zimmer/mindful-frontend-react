@@ -8,10 +8,11 @@ export default class MoodDiaryEntry extends Component {
     render() {
         return (
             <Container>
+                <TextField fullWidth variant='outlined' label='Title' style={{ marginBottom: 5 }} value={this.props.moodTitle} onChange={this.props.handleMoodTitle} />
                 <TextField
                     id="filled-multiline-static"
                     multiline
-                    rows={4}
+                    rows={6}
                     placeholder={`What has you feeling ${this.props.mood}?`}
                     variant="outlined"
                     style={{ width: "100%" }}

@@ -14,7 +14,8 @@ import MoodFormStepper from './MoodFormStepper'
 class MoodDairyForm extends Component {
     state = {
         moodSelect: '',
-        moodEntry: ''
+        moodEntry: '',
+        moodTitle: ''
     }
 
     handleCardFlips = (mood) => {
@@ -26,14 +27,19 @@ class MoodDairyForm extends Component {
         this.setState({ moodEntry: e.target.value })
     }
 
+    handleMoodTitle = (e) => {
+        this.setState({ moodTitle: e.target.value })
+    }
+
     createNewMood = () => {
         const userData = {
             mood: this.state.moodSelect,
             comment: this.state.moodEntry,
-            id: this.props.id
+            id: this.props.id,
+            title: this.state.moodTitle
         }
-
-        createMood(userData)
+        console.log(userData)
+        this.props.createMood(userData)
     }
 
     render() {
@@ -42,7 +48,7 @@ class MoodDairyForm extends Component {
                 <Container  >
                     <Paper elevation={24} style={{ height: '100%', marginTop: '3rem', padding: '3rem' }}>
                         <Typography variant='h1' align='center' style={{ paddingTop: '0rem' }}>Mood Diary</Typography>
-                        <MoodFormStepper id={this.props.id} moodSelect={this.state.moodSelect} moodEntry={this.state.moodEntry} handleMoodEntry={this.handleMoodEntry} handleCardFlips={this.handleCardFlips} />
+                        <MoodFormStepper id={this.props.id} moodSelect={this.state.moodSelect} createNewMood={this.createNewMood} moodTitle={this.state.moodTitle} handleMoodTitle={this.handleMoodTitle} moodEntry={this.state.moodEntry} handleMoodEntry={this.handleMoodEntry} handleCardFlips={this.handleCardFlips} />
 
                     </Paper>
                 </Container>

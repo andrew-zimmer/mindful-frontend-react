@@ -16,6 +16,8 @@ function MoodData(props) {
     const [userMoods, setUserMoods] = useState(props.userMoods)
     const [uniqMoods, setUniqMoods] = useState(props.uniqMoods)
     const [allDates, setAllDates] = useState([...new Set(props.userMoods.map(moods => moods.created_at))])
+    const [startIndexMain, setStartIndexMain] = useState(0);
+    const [endIndexMain, setEndIndexMain] = useState(props.userMoods.length - 1)
 
     const dates = [...userMoods.filter(mood => uniqMoods.includes(mood.mood)).map(mood => {
 
@@ -29,10 +31,21 @@ function MoodData(props) {
 
     const updateMood = (newMoods) => {
         setUniqMoods(newMoods)
+
         const newUserMoods = () => {
             let array = []
             for (let i = 0; i < newMoods.length; i++) {
-                array = array.concat(props.userMoods.filter(mood => mood.mood === newMoods[i]))
+                array = array.concat(props.userMoods.slice(startIndexMain, endIndexMain).filter(mood => mood.mood === newMoods[i]))
+            }
+            for (let i = array.length - 1; i >= 0; i--) {
+                for (let j = 0; j < i; j++) {
+                    if (array[j].created_at > array[j + 1].created_at) {
+                        const larger = array[j]
+
+                        array[j] = array[j + 1]
+                        array[j + 1] = larger
+                    }
+                }
             }
             setUserMoods(array)
         }
@@ -66,10 +79,25 @@ function MoodData(props) {
             }
         }
         setUserMoods(props.userMoods.slice(startIndex, endIndex()))
+        setStartIndexMain(startIndex)
+        setEndIndexMain(endIndex())
     }
-    console.log(userMoods)
     const renderMoodComments = () => {
-        return userMoods.map(mood => {
+        let array = []
+        for (let i = 0; i < uniqMoods.length; i++) {
+            array = array.concat(userMoods.filter(mood => mood.mood === uniqMoods[i]))
+        }
+        for (let i = array.length - 1; i >= 0; i--) {
+            for (let j = 0; j < i; j++) {
+                if (array[j].created_at > array[j + 1].created_at) {
+                    const larger = array[j]
+
+                    array[j] = array[j + 1]
+                    array[j + 1] = larger
+                }
+            }
+        }
+        return array.map(mood => {
             const d = new Date(mood.created_at);
             const ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
             const mo = new Intl.DateTimeFormat('en', { month: 'short' }).format(d);
@@ -77,6 +105,9 @@ function MoodData(props) {
             return (<Paper fullwidth>
                 <Grid container>
                     <Grid item md={6}>
+                        <Typography>
+                            {mood.title && mood.title}
+                        </Typography>
                         <Typography>
                             {mood.mood}
                         </Typography>

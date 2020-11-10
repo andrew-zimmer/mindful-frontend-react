@@ -36,7 +36,7 @@ function getSteps() {
 
 
 
-function HorizontalLinearStepper({ moods, moodSelect, handleCardFlips, handleMoodEntry, moodEntry, createMood, id }) {
+function HorizontalLinearStepper({ moods, moodSelect, handleCardFlips, handleMoodEntry, moodEntry, moodTitle, createNewMood, handleMoodTitle }) {
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
     const [skipped, setSkipped] = React.useState(new Set());
@@ -68,12 +68,7 @@ function HorizontalLinearStepper({ moods, moodSelect, handleCardFlips, handleMoo
         }
         if (activeStep === 2) {
             //submit mood to db
-            const userData = {
-                mood: moodSelect,
-                comment: moodEntry,
-                id: id
-            }
-            createMood(userData)
+            createNewMood()
         }
     };
 
@@ -110,7 +105,7 @@ function HorizontalLinearStepper({ moods, moodSelect, handleCardFlips, handleMoo
             </Grid>
 
             {activeStep === 0 && moods.map(mood => <Grid key={mood.mood} item xs={6} md={3}><MoodsOptions moodSelect={moodSelect} handleCardFlips={handleCardFlips} mood={mood} /></Grid>)}
-            {activeStep === 1 && <MoodDiaryEntry mood={moodSelect} moodEntry={moodEntry} handleMoodEntry={handleMoodEntry} />}
+            {activeStep === 1 && <MoodDiaryEntry mood={moodSelect} moodTitle={moodTitle} handleMoodTitle={handleMoodTitle} moodEntry={moodEntry} handleMoodEntry={handleMoodEntry} />}
             {activeStep === 2 && <MoodDiaryReflection />}
             <Grid item xs={12}>
                 {activeStep === steps.length ? (

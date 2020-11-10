@@ -17,14 +17,7 @@ export default class MoodFilter extends Component {
         this.props.updateMood(newValue)
     }
 
-    handleInputChange = (e) => {
-    }
 
-    handleHighlightChange = (e) => {
-    }
-
-    handleClose = (e) => {
-    }
 
     render() {
         return (

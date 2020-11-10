@@ -45,7 +45,7 @@ export default class MoodFilter extends Component {
                             {option}
                         </React.Fragment>
                     )}
-                    style={{ width: 500 }}
+                    style={{ width: '100%' }}
                     renderInput={(params) => (
                         <TextField {...params} variant="outlined" label="Mood Filter" placeholder="Your Past Moods" />
                     )}

@@ -1,52 +1,3 @@
-// import React from 'react';
-// import { makeStyles } from '@material-ui/core/styles';
-// import TextField from '@material-ui/core/TextField';
-
-// const useStyles = makeStyles((theme) => ({
-//     container: {
-//         display: 'flex',
-//         flexWrap: 'wrap',
-//     },
-//     textField: {
-//         marginLeft: theme.spacing(1),
-//         marginRight: theme.spacing(1),
-//         width: 200,
-//     },
-// }));
-
-// export default function MoodDateFilter({ dates }) {
-//     const classes = useStyles();
-
-//     return (
-//         <div>
-//             <form className={classes.container} noValidate>
-//                 <TextField
-//                     id="date"
-//                     label="Start Date"
-//                     type="date"
-//                     defaultValue={dates[0]}
-//                     className={classes.textField}
-//                     InputLabelProps={{
-//                         shrink: true,
-//                     }}
-//                 />
-//             </form>
-//             <form className={classes.container} noValidate>
-//                 <TextField
-//                     id="date"
-//                     label="End Date"
-//                     type="date"
-//                     defaultValue={dates[dates.length - 1]}
-//                     className={classes.textField}
-
-//                     InputLabelProps={{
-//                         shrink: true,
-//                     }}
-//                 />
-//             </form>
-//         </div>
-//     );
-// }
 import React, { useState } from "react";
 import DateFnsUtils from "@date-io/date-fns";
 import {
@@ -54,6 +5,7 @@ import {
     DatePicker,
 
 } from "@material-ui/pickers";
+import { Typography } from "@material-ui/core";
 
 function MoodDateFilter({ dates, updateUserMoods }) {
     const [selectedStartDate, handleStartDateChange] = useState(new Date(dates[0]));
@@ -95,8 +47,11 @@ function MoodDateFilter({ dates, updateUserMoods }) {
 
     return (
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <div className="pickers">
+            <div className="pickers" style={{ verticalAlign: 'text-bottom' }}>
                 <DatePicker label='Start Date' onAccept={(date) => console.log(date)} value={selectedStartDate} onChange={handleStartDate} shouldDisableDate={(date) => matchDates(date)} />
+                <Typography display='inline' style={{ marginLeft: 20, marginRight: 20 }}>
+                    To
+                </Typography>
                 <DatePicker label='End Date' variant='outlined' helperText='You can only choose specific dates' value={selectedEndDate} onChange={handleEndDate} shouldDisableDate={(date) => matchDates(date)} />
             </div>
         </MuiPickersUtilsProvider>

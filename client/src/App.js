@@ -2,6 +2,7 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom'
 
 import { connect } from 'react-redux'
+import { checkSessionForToken } from './actions/user'
 
 import Home from './containers/Home'
 import User from './containers/User'
@@ -11,24 +12,33 @@ let theme = createMuiTheme()
 theme = responsiveFontSizes(theme)
 
 
-function App({ loggedIn }) {
-  return (
-    <div className="App">
-      <MuiThemeProvider theme={theme}>
-        <Switch>
-          <Route exact path="/">
-            {loggedIn ? <Redirect to='/users/home' /> : <Home />}
-          </Route>
-          <Route path='/users'>
-            <User />
-          </Route>
-          <Route>
-            'Are you lost?'
+class App extends React.Component {
+  loggedIn = this.props.loggedIn
+
+  UNSAFE_componentWillMount() {
+    this.props.checkSessionForToken()
+  }
+
+
+  render() {
+    return (
+      <div className="App">
+        <MuiThemeProvider theme={theme}>
+          <Switch>
+            <Route exact path="/">
+              {this.loggedIn ? <Redirect to='/users/home' /> : <Home />}
+            </Route>
+            <Route path='/users'>
+              <User />
+            </Route>
+            <Route>
+              'Are you lost?'
         </Route>
-        </Switch>
-      </MuiThemeProvider>
-    </div>
-  );
+          </Switch>
+        </MuiThemeProvider>
+      </div>
+    );
+  }
 }
 
 const mapStateToProps = state => {
@@ -37,4 +47,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(App)
+export default connect(mapStateToProps, { checkSessionForToken })(App)

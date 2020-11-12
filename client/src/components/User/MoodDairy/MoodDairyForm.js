@@ -39,7 +39,6 @@ class MoodDairyForm extends Component {
             id: this.props.id,
             title: this.state.moodTitle
         }
-        console.log(userData)
         this.props.createMood(userData)
     }
 

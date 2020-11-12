@@ -50,7 +50,6 @@ class MoodsOptions extends Component {
 
 
     render() {
-        console.log(this.props.mood)
         return (
 
             <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="vertical" >

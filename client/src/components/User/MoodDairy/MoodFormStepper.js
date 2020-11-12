@@ -16,6 +16,7 @@ import Grid from '@material-ui/core/Grid'
 import MoodsOptions from './MoodsOptions'
 import MoodDiaryEntry from './MoodDiaryEntry'
 import MoodDiaryReflection from './MoodDiaryReflection'
+import MoodResources from './MoodResources'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -31,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getSteps() {
-    return ['Select your mood', 'Create a diary entry', 'Lets reflect',];
+    return ['Select your mood', 'Create a diary entry', 'Helpful resources',];
 }
 
 
@@ -52,7 +53,7 @@ function HorizontalLinearStepper({ moods, moodSelect, handleCardFlips, handleMoo
             case 1:
                 return "Lets write about it";
             case 2:
-                return 'Good questions to ask yourself';
+                return 'Some Helpful Resources';
             default:
                 return 'Unknown step';
         }
@@ -80,6 +81,10 @@ function HorizontalLinearStepper({ moods, moodSelect, handleCardFlips, handleMoo
 
     const handleReset = () => {
         setActiveStep(0);
+        handleMoodEntry({ target: { value: '' } })
+        handleMoodTitle({ target: { value: '' } })
+        handleCardFlips('')
+
     };
 
 
@@ -106,7 +111,7 @@ function HorizontalLinearStepper({ moods, moodSelect, handleCardFlips, handleMoo
 
             {activeStep === 0 && moods.map(mood => <Grid key={mood.mood} item xs={6} md={3}><MoodsOptions moodSelect={moodSelect} handleCardFlips={handleCardFlips} mood={mood} /></Grid>)}
             {activeStep === 1 && <MoodDiaryEntry mood={moodSelect} moodTitle={moodTitle} handleMoodTitle={handleMoodTitle} moodEntry={moodEntry} handleMoodEntry={handleMoodEntry} />}
-            {activeStep === 2 && <MoodDiaryReflection />}
+            {activeStep === 2 && <MoodResources mood={moodSelect} />}
             <Grid item xs={12}>
                 {activeStep === steps.length ? (
                     <div>

@@ -100,7 +100,6 @@ export const checkSessionForToken = () => {
         fetch('/api/userlogin')
             .then(res => res.json())
             .then(json => {
-                console.log(json.name)
                 if (json.name === 'Error') {
                     dispatch({ type: 'NO_JWT' })
                 } else {

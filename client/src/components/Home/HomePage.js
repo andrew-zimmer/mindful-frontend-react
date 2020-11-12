@@ -34,7 +34,7 @@ class HomePage extends Component {
             <Container  >
                 <Paper elevation={24} style={{ height: '100%', marginTop: '6rem', padding: '5rem' }}>
                     <Typography variant='h1' align='center' style={{ paddingTop: '0.5em' }}>Mindful</Typography>
-                    <Typography variant='overline' display='block' align='center' style={{ marginTop: '1em', marginBottom: '5em' }}> Quote </Typography>
+                    <Typography variant='overline' display='block' align='center' style={{ marginTop: '1em', marginBottom: '5em' }}>  </Typography>
 
                     <Grid container spacing={2}>
                         <Grid item xs={1} sm={2} md={3} lg={4} xl={5}></Grid>
@@ -48,10 +48,13 @@ class HomePage extends Component {
                     </Grid>
                 </Paper>
                 <div style={{ marginTop: '1rem' }}>
-                    <GitHubIcon />
-                    <YouTubeIcon />
+                    <Button>
+                        <GitHubIcon />
+                    </Button>
+                    <Button>
+                        <YouTubeIcon />
+                    </Button>
                 </div>
-                <Slider />
             </Container>
         )
     }

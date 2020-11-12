@@ -3,7 +3,8 @@ import React, { Component } from 'react'
 import EmergancyModal from './EmergancyModal'
 
 import { connect } from 'react-redux'
-import { signOut } from '../../../actions/user'
+import { signOut, checkSessionForToken } from '../../../actions/user'
+
 
 import { withRouter } from 'react-router-dom'
 
@@ -18,6 +19,10 @@ class UserHomePage extends Component {
         ele1: 5,
         ele2: 5,
         ele3: 5,
+    }
+
+    UNSAFE_componentWillMount() {
+        this.props.checkSessionForToken()
     }
 
     handleTouchStart = (e) => {
@@ -77,4 +82,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { signOut })(withRouter(UserHomePage))
+export default connect(mapStateToProps, { signOut, checkSessionForToken })(withRouter(UserHomePage))

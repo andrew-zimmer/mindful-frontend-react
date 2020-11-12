@@ -10,6 +10,8 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button'
 
+import MoodDataModal from './MoodDataModal'
+
 const columns = [
     { id: 'title', label: 'Title', minWidth: 50 },
     { id: 'mood', label: 'Mood', minWidth: 50, align: 'center' },
@@ -28,6 +30,11 @@ const columns = [
         align: 'left',
         format: (value) => value.toFixed(2),
     },
+    {
+        id: 'modal',
+        minWidth: 50,
+        align: 'center'
+    }
 ];
 
 
@@ -48,8 +55,15 @@ export default function StickyHeadTable({ returnMoodsArray }) {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
-    const rows = returnMoodsArray()
-    console.log(rows)
+    const addButtonToRows = () => {
+        const array = returnMoodsArray()
+        for (let i = 0; i < array.length; i++) {
+            array[i]['modal'] = <MoodDataModal mood={array[i]} />
+        }
+        return array
+    }
+
+    const rows = addButtonToRows()
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -94,14 +108,10 @@ export default function StickyHeadTable({ returnMoodsArray }) {
                                                 </TableCell>)
                                         } else if (column.id === 'comment') {
                                             const commentArray = row.comment.split('')
-                                            const addButton = () => {
-                                                return <Button>Read More</Button>
-                                            }
+
                                             return (
-                                                <TableCell key={column.id} align={column.align} style={{ verticalAlign: 'sub' }}>
-                                                    <p>{commentArray.length >= 70 ? `${commentArray.slice(0, 70).join('')}...` : `${commentArray.join('')}`}
-                                                        <Button variant='outlined' style={{ float: 'right' }}>Read More</Button>
-                                                    </p>
+                                                <TableCell key={column.id} align={column.align}>
+                                                    {commentArray.length >= 70 ? `${commentArray.slice(0, 70).join('')}...` : `${commentArray.join('')}`}
                                                 </TableCell>
                                             )
                                         } else {

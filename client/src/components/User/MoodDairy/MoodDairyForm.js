@@ -10,6 +10,7 @@ import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 
 import MoodFormStepper from './MoodFormStepper'
+import Drawer from '../UserHome/Drawer'
 
 class MoodDairyForm extends Component {
     state = {
@@ -42,16 +43,23 @@ class MoodDairyForm extends Component {
         this.props.createMood(userData)
     }
 
+    renderContent = () => {
+        return (
+            <Container  >
+                <Paper elevation={24} style={{ height: '100%', marginTop: '3rem', padding: '3rem' }}>
+                    <Typography variant='h1' align='center' style={{ paddingTop: '0rem' }}>Mood Diary</Typography>
+                    <MoodFormStepper id={this.props.id} moodSelect={this.state.moodSelect} createNewMood={this.createNewMood} moodTitle={this.state.moodTitle} handleMoodTitle={this.handleMoodTitle} moodEntry={this.state.moodEntry} handleMoodEntry={this.handleMoodEntry} handleCardFlips={this.handleCardFlips} />
+
+                </Paper>
+            </Container>
+        )
+    }
+
     render() {
         return (
             <div>
-                <Container  >
-                    <Paper elevation={24} style={{ height: '100%', marginTop: '3rem', padding: '3rem' }}>
-                        <Typography variant='h1' align='center' style={{ paddingTop: '0rem' }}>Mood Diary</Typography>
-                        <MoodFormStepper id={this.props.id} moodSelect={this.state.moodSelect} createNewMood={this.createNewMood} moodTitle={this.state.moodTitle} handleMoodTitle={this.handleMoodTitle} moodEntry={this.state.moodEntry} handleMoodEntry={this.handleMoodEntry} handleCardFlips={this.handleCardFlips} />
+                <Drawer content={this.renderContent()} />
 
-                    </Paper>
-                </Container>
             </div>
         )
     }

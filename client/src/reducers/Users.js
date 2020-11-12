@@ -9,6 +9,8 @@ export default function Users(state = { loading: false, loggedIn: false, usernam
             return { ...state, loggedIn: false, username: '', email: '', id: '', userMoods: [] }
         case 'CONFIRM_JWT':
             return { ...state, loading: false, loggedIn: true, username: action.payload.user.username, email: action.payload.user.email, id: action.payload.user.id, userMoods: [...action.payload.moods] }
+        case 'NO_JWT':
+            return { ...state, loading: false }
         case 'ERRORS':
             return { ...state, loading: false }
         case 'CREATE_MOOD':

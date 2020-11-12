@@ -3,8 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import MoodData from './MoodData'
-import MoodFilter from './MoodFilter'
-
+import Drawer from '../UserHome/Drawer'
 class MoodDataDisplay extends Component {
     state = {
         userMoods: this.props.userMoods,
@@ -19,7 +18,7 @@ class MoodDataDisplay extends Component {
     render() {
         return (
             <div>
-                <MoodData userMoods={this.state.userMoods} moods={this.state.moods} uniqMoods={this.state.uniqMoods} />
+                <Drawer content={<MoodData userMoods={this.state.userMoods} moods={this.state.moods} uniqMoods={this.state.uniqMoods} />} />
                 {/* <MoodFilter userMoods={this.props.userMoods} setState={this.changeMood} /> */}
             </div>
         )

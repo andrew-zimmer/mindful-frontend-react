@@ -84,6 +84,9 @@ app.delete('/api/v1/sessions', async (req, res) => {
         data: req.body
     }).then(resp => {
         res.send(resp.data)
+        console.log('got response from logging out')
+        req.session.jwt = null
+        req.session.email = null
         req.session = null
 
     })
@@ -93,8 +96,8 @@ app.delete('/api/v1/sessions', async (req, res) => {
 
 //check for user jwt in sessions and logs them in
 app.get('/api/userlogin', async (req, res) => {
-
-    if (req.session.jwt) {
+    console.log(req.session.jwt, req.session.email)
+    if (req.session.jwt !== '') {
         console.log('yes Token')
 
         await axios({
@@ -110,7 +113,7 @@ app.get('/api/userlogin', async (req, res) => {
 
 
         })
-            .catch(err => console.log('error'))
+            .catch(err => res.send(err))
 
     } else {
         console.log('no Token')

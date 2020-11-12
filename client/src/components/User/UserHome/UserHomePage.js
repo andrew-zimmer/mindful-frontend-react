@@ -30,8 +30,16 @@ class UserHomePage extends Component {
 
     render() {
         return (
-            <Container  >
-                <Button onClick={() => this.props.signOut(this.props.id)}>Signout</Button>
+            <Container >
+                <Grid container spacing={2}>
+                    <Grid item xs={4} />
+                    <Grid item xs={4} align='center'>
+                        <Typography variant='h3'>Mindful</Typography>
+                    </Grid>
+                    <Grid item xs={4}>
+                        <Button style={{ float: 'right' }} onClick={() => this.props.signOut(this.props.id)}>Signout</Button>
+                    </Grid>
+                </Grid>
                 <Paper elevation={24} style={{ height: '100%', marginTop: '6rem', paddingTop: '3rem', paddingLeft: '5em', paddingRight: '5em', paddingBottom: '2em' }}>
                     <Typography variant='h2' align='center' >Weclome {this.props.username}</Typography>
 

@@ -146,23 +146,23 @@ function MoodData(props) {
 
             <Grid container spacing={2}>
                 <Grid item xs={12} md={12} align='center'>
-                    <Paper style={{ padding: 10 }}>
+                    <Paper style={{ padding: 10 }} elevation={10}>
                         <MoodDateFilter dates={allDates} updateUserMoods={startDateEndDate} />
                     </Paper>
                 </Grid>
                 <Grid item xs={8}>
-                    <Paper style={{ padding: 10 }}>
+                    <Paper style={{ padding: 10 }} elevation={10}>
                         <Bar data={data} options={options} width={'100%'} height={30} />
                     </Paper>
                 </Grid>
                 <Grid item xs={4} md={4}>
-                    <Paper style={{ padding: 10 }}>
+                    <Paper style={{ padding: 10 }} elevation={10}>
                         <MoodFilter userMoods={props.userMoods} updateMood={updateMood} />
                     </Paper>
                 </Grid>
 
                 <Grid item xs={12}>
-                    <Paper style={{ padding: 10 }}>
+                    <Paper style={{ padding: 10 }} elevation={10}>
                         <MoodTableDisplay returnMoodsArray={returnMoodsArray} />
                     </Paper>
                 </Grid>

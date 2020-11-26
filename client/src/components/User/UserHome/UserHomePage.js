@@ -39,7 +39,7 @@ class UserHomePage extends Component {
                 <Grid container spacing={2}>
                     <Grid item xs={4} />
                     <Grid item xs={4} align='center'>
-                        <Typography variant='h3'>Mindful</Typography>
+                        <Typography variant='h3' style={{ animation: 'marquee 15s linear infinite' }}>Mindful</Typography>
                     </Grid>
                     <Grid item xs={4}>
                         <Button style={{ float: 'right' }} onClick={() => this.props.signOut(this.props.id)}>Signout</Button>
